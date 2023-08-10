@@ -38,7 +38,16 @@ func main() {
 		&map[string][][]string{"rus": {{"Мои привычки", "Ближайшие напоминания"},
 			{"Моя статистика", "Настройки"}}})
 
-	screens.NewMenuScreen("my_routines", &map[string]string{"rus": "Мои привычки"},
+	screens.NewListScreen("my_routines", &map[string]string{"rus": "Мои привычки"},
+		"new_routine", &map[string]string{"rus": "Новая привычка"},
+		"prev", &map[string]string{"rus": "Назад"},
+		screens.MakeDataDummy(1, "routine"))
+
+	screens.NewCustomTextScreen("routine", screens.DummyContextReader,
+		&[][]string{{"prev"}},
+		&map[string][][]string{"rus": {{"Назад"}}})
+
+	screens.NewMenuScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
 		&[][]string{{"prev"}},
 		&map[string][][]string{"rus": {{"Назад"}}})
 

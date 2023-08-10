@@ -23,7 +23,9 @@ type Screen interface {
 
 func onInlineKeyboard(ctx context.Context, b *bot.Bot, mes *models.Message, data []byte) {
 	screen := screens[string(data)]
-	screen.setPrev(currentScreen)
+	if string(data) != screens[currentScreen].GetPrev() {
+		screen.setPrev(currentScreen)
+	}
 	currentScreen = string(data)
 
 	b.SendMessage(ctx, &bot.SendMessageParams{
@@ -52,4 +54,8 @@ func deleteOnInput(ctx context.Context, b *bot.Bot, update *models.Update) {
 		ChatID:    update.Message.Chat.ID,
 		MessageID: update.Message.ID,
 	})
+}
+
+type ScreenContext interface {
+	GetContext() string
 }
