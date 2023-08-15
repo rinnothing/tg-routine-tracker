@@ -24,5 +24,5 @@ func (ct *CustomTextScreen) GetText() string {
 
 func DummyContextReader(ct *CustomTextScreen) *map[string]string {
 	ctx := screens[ct.prev].(ScreenContext).GetContext()
-	return &map[string]string{"rus": fmt.Sprint("Вы выбрали " + ctx + " вариант.")}
+	return &map[string]string{"rus": fmt.Sprint("Вы выбрали " + ctx[0] + " вариант.")}
 }

@@ -19,6 +19,8 @@ type buttonData struct {
 type getListFunc func() *[]buttonData
 
 type ListScreen struct {
+	idServies
+
 	address string
 	prev    string
 	text    *map[string]string
@@ -87,8 +89,8 @@ func (ls *ListScreen) GetKeyboard(b *bot.Bot) *inline.Keyboard {
 	return kb
 }
 
-func (ls *ListScreen) GetContext() string {
-	return ls.context
+func (ls *ListScreen) GetContext() []string {
+	return []string{ls.context}
 }
 
 func onInlineKeyboardList(ctx context.Context, b *bot.Bot, mes *models.Message, data []byte) {

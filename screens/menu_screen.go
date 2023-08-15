@@ -9,6 +9,7 @@ import (
 )
 
 type MenuScreen struct {
+	idServies
 	prev         string
 	text         *map[string]string
 	keyboardTo   *[][]string

@@ -14,6 +14,10 @@ var StartScreen string = "main_menu"
 var Language string = "eng"
 
 type Screen interface {
+	GetMessageID() int
+	setMessageID(messageID int)
+	GetChatID() int64
+	setChatID(chatID int64)
 	GetPrev() string
 	setPrev(prev string)
 	GetText() string
@@ -28,11 +32,13 @@ func onInlineKeyboard(ctx context.Context, b *bot.Bot, mes *models.Message, data
 	}
 	currentScreen = string(data)
 
-	b.SendMessage(ctx, &bot.SendMessageParams{
+	model, _ := b.SendMessage(ctx, &bot.SendMessageParams{
 		ChatID:      mes.Chat.ID,
 		Text:        screen.GetText(),
 		ReplyMarkup: screen.GetKeyboard(b),
 	})
+	screen.setMessageID(model.ID)
+	screen.setChatID(model.Chat.ID)
 }
 
 func DefaultHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
@@ -57,5 +63,5 @@ func deleteOnInput(ctx context.Context, b *bot.Bot, update *models.Update) {
 }
 
 type ScreenContext interface {
-	GetContext() string
+	GetContext() []string
 }

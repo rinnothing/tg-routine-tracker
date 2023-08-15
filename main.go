@@ -47,10 +47,15 @@ func main() {
 		&[][]string{{"prev"}},
 		&map[string][][]string{"rus": {{"Назад"}}})
 
-	screens.NewMenuScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
-		&[][]string{{"prev"}},
-		&map[string][][]string{"rus": {{"Назад"}}})
+	// screens.NewMenuScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
+	// 	&[][]string{{"prev"}},
+	// 	&map[string][][]string{"rus": {{"Назад"}}})
 
+	screens.NewSequenceEntryScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
+		&map[string][]string{"rus": {"Название", "Время", "Частота", "Описание"}},
+		&map[string][]string{"rus": {"Проверьте правильность названия", "Проверьте правильность времени", "Проверьте правильность частоты", "Проверьте правильность описания"}},
+		&[]screens.ContextcheckerFunc{screens.DummyChecker, screens.DummyChecker, screens.DummyChecker, screens.DummyChecker},
+		screens.GoPrevAfter)
 	// newRoutine := screen{
 	// 	text: "Новая привычка",
 	// 	makeKeyboard: func(b *bot.Bot, s *screen) *inline.Keyboard {
