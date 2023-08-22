@@ -44,64 +44,48 @@ func main() {
 		screens.MakeDataDummy(1, "routine"))
 
 	screens.NewCustomTextScreen("routine", screens.DummyContextReader,
-		&[][]string{{"prev"}},
-		&map[string][][]string{"rus": {{"Назад"}}})
-
-	// screens.NewMenuScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
-	// 	&[][]string{{"prev"}},
-	// 	&map[string][][]string{"rus": {{"Назад"}}})
+		&[][]string{{"routine_stats", "change_time"},
+			{"change_name", "change_description"},
+			{"prev"}},
+		&map[string][][]string{"rus": {{"Статистика", "Изменить время"},
+			{"Изменить имя", "Изменить описание"},
+			{"Назад"}}})
 
 	screens.NewSequenceEntryScreen("new_routine", &map[string]string{"rus": "Новая привычка"},
 		&map[string][]string{"rus": {"Название", "Время", "Частота", "Описание"}},
 		&map[string][]string{"rus": {"Проверьте правильность названия", "Проверьте правильность времени", "Проверьте правильность частоты", "Проверьте правильность описания"}},
 		&[]screens.ContextcheckerFunc{screens.DummyChecker, screens.DummyChecker, screens.DummyChecker, screens.DummyChecker},
 		screens.GoPrevAfter)
-	// newRoutine := screen{
-	// 	text: "Новая привычка",
-	// 	makeKeyboard: func(b *bot.Bot, s *screen) *inline.Keyboard {
-	// 		return inline.New(b).
-	// 			Row().
-	// 			Button("Назад", []byte(s.prev), onInlineKeyboard)
-	// 	},
-	// 	update: func(s *screen) {},
-	// 	input:  prevRemove,
-	// }
-	// routineInList := screen{
-	// 	text: "",
-	// 	makeKeyboard: func(b *bot.Bot, s *screen) *inline.Keyboard {
-	// 		return inline.New(b).
-	// 			Row().
-	// 			Button("Назад", []byte(s.prev), onInlineKeyboard)
-	// 	},
-	// 	update: func(s *screen) {},
-	// 	input:  prevRemove,
-	// }
+
 	screens.NewMenuScreen("coming_reminders", &map[string]string{"rus": "Ближайшие уведомления"},
 		&[][]string{{"prev"}},
 		&map[string][][]string{"rus": {{"Назад"}}})
-	// userRoutineStats := screen{
-	// 	text: "",
-	// 	makeKeyboard: func(b *bot.Bot, s *screen) *inline.Keyboard {
-	// 		return inline.New(b).
-	// 			Row().
-	// 			Button("Назад", []byte(s.prev), onInlineKeyboard)
-	// 	},
-	// 	update: func(s *screen) {},
-	// 	input:  prevRemove,
-	// }
-	// commonRoutineStats := screen{
-	// 	text: "",
-	// 	makeKeyboard: func(b *bot.Bot, s *screen) *inline.Keyboard {
-	// 		return inline.New(b).
-	// 			Row().
-	// 			Button("Назад", []byte(s.prev), onInlineKeyboard)
-	// 	},
-	// 	update: func(s *screen) {},
-	// 	input:  prevRemove,
-	// }
+
+	screens.NewMenuScreen("routine_stats", &map[string]string{"rus": "Статистика привычки"},
+		&[][]string{{"common_routine_stats"},
+			{"prev"}},
+		&map[string][][]string{"rus": {{"Общая статистика"},
+			{"Назад"}}})
+
+	screens.NewMenuScreen("common_routine_stats", &map[string]string{"rus": "Общая статистика привычки"},
+		&[][]string{{"prev"}},
+		&map[string][][]string{"rus": {{"Назад"}}})
+
 	screens.NewMenuScreen("common_user_stats", &map[string]string{"rus": "Статистика пользователя"},
 		&[][]string{{"prev"}},
 		&map[string][][]string{"rus": {{"Назад"}}})
+
+	screens.NewSequenceEntryScreen("change_time", &map[string]string{"rus": "Введите новое время"},
+		&map[string][]string{"rus": {""}}, &map[string][]string{"rus": {"Проверьте правильность времени"}},
+		&[]screens.ContextcheckerFunc{screens.DummyChecker}, screens.GoPrevAfter)
+
+	screens.NewSequenceEntryScreen("change_name", &map[string]string{"rus": "Введите новое имя"},
+		&map[string][]string{"rus": {""}}, &map[string][]string{"rus": {"Проверьте правильность имени"}},
+		&[]screens.ContextcheckerFunc{screens.DummyChecker}, screens.GoPrevAfter)
+
+	screens.NewSequenceEntryScreen("change_description", &map[string]string{"rus": "Введите новое описание"},
+		&map[string][]string{"rus": {""}}, &map[string][]string{"rus": {"Проверьте правильность описания"}},
+		&[]screens.ContextcheckerFunc{screens.DummyChecker}, screens.GoPrevAfter)
 
 	screens.NewMenuScreen("settings", &map[string]string{"rus": "Настройки"},
 		&[][]string{{"prev"}},
